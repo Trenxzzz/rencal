@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+
+  /* Verdes Rencal */
+  --color-leaf-25: #f8fbf8;
+  --color-leaf-50: #f1f7f2;
+  --color-leaf-100: #e2efe5;
+  --color-leaf-200: #c5e0cc;
+  --color-leaf-300: #9bc9a8;
+  --color-leaf-400: #69ac7f;
+  --color-leaf-500: #43905d;
+  --color-leaf-600: #2f7448;
+  --color-leaf-700: #265c3a;
+  --color-leaf-800: #1f4a30;
+  --color-leaf-900: #183b27;
+  --color-leaf-950: #0d2217;
+
+  /* Estados (solo para alertas) */
+  --color-warn-50: #fdf7e6;
+  --color-warn-100: #fbeec4;
+  --color-warn-500: #d99a06;
+  --color-warn-600: #b57d00;
+  --color-warn-700: #8a5f00;
+  --color-risk-50: #fdeeee;
+  --color-risk-100: #fad7d7;
+  --color-risk-500: #d64545;
+  --color-risk-600: #b93232;
+  --color-risk-700: #922525;
+
+  --shadow-card: 0 1px 2px rgb(24 59 39 / 0.04), 0 4px 16px -4px rgb(24 59 39 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(24 59 39 / 0.05), 0 12px 32px -8px rgb(24 59 39 / 0.16);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #f5f9f6;
+  color: var(--color-leaf-950);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbar suave */
+.scroll-soft {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-leaf-200) transparent;
+}
+
+/* Leaflet: polígonos animados */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: #233128;
+}
+path.cuartel-poly {
+  transition: fill-opacity 220ms ease, stroke-width 220ms ease, stroke-opacity 220ms ease;
+  cursor: pointer;
+}
+.cuartel-label {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  pointer-events: none;
+}
+.cuartel-label::before {
+  display: none;
+}
+.leaflet-tooltip.cuartel-tip {
+  border-radius: 12px;
+  border: 1px solid var(--color-leaf-100);
+  box-shadow: var(--shadow-lift);
+  padding: 10px 12px;
+  color: var(--color-leaf-950);
+  font-family: var(--font-sans);
+}
+.leaflet-control-attribution {
+  font-size: 10px;
+}
+
+/* Pulso para alertas */
+@keyframes rencal-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+.pulse-ring {
+  animation: rencal-pulse 2s var(--ease-out-soft) infinite;
+}
+
+/* Recharts: sin outline al hacer clic */
+.recharts-wrapper *:focus {
+  outline: none;
+}
+
+/* Polígono en riesgo: borde con leve pulso */
+@keyframes poly-pulse {
+  0%, 100% { stroke-opacity: 1; }
+  50% { stroke-opacity: 0.35; }
+}
+path.cuartel-riesgo {
+  animation: poly-pulse 2.2s ease-in-out infinite;
+}
